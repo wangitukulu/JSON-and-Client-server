@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+
+    //Five different objects representing income from different places.
+    const incomeFood = { name: "Salary", amount: 15000, recuring: true };
+    const incomeParker = { name: "Freelance", amount: 15000, recuring: false };
+    const incomeTony = { name: "Bonus", amount: 12000, recuring: true };
+    const incomeDeli = { name: "Side Job", amount: 18000, recuring: false };
+    const incomeSpice = { name: "Church", amount: 20000, recuring: true };
+
+
+
+    let incomeArray = [incomeFood, incomeParker, incomeTony, incomeDeli, incomeSpice]// Array to store different income objects
+
+    sessionStorage.setItem("income", JSON.stringify(incomeArray))//Values stored as strings
+    let retrieveArray = JSON.parse(sessionStorage.getItem('income'))//retrieve the value as object
+
+    let message = ""
+
+    for (let i = 0; i < retrieveArray.length; i++) {
+        message += "\nIncome Item is :\nName: " + retrieveArray[i].name + "\nAmount: " + retrieveArray[i].amount + (retrieveArray[i].recuring ? " \nIs Recurring" : "\nNot Recurring");
+    }
+
+    alert(message)
+
+    //Displaying the income items , asking the user to add another entry
+
+    const newIncomeEntry = {};
+    newIncomeEntry.name = prompt(`Enter the name for income item `);
+    newIncomeEntry.amount = parseFloat(prompt(`Enter the amount for income item `));
+    newIncomeEntry.recurring = confirm(`Is income item recurring?`); //true or false
+
+    incomeArray.push(newIncomeEntry)
+
+    sessionStorage.setItem("income", JSON.stringify(incomeArray));
+    retrieveArray = JSON.parse(sessionStorage.getItem('income'))
+
+    //Five different objects representing different expenses.
+
+    const expenses1 = { name: "food", amount: 1000, recuring: true };
+    const expenses2 = { name: "rent", amount: 6000, recuring: false };
+    const expenses3 = { name: "fees", amount: 4000, recuring: true };
+    const expenses4 = { name: "cloth", amount: 900, recuring: false };
+    const expenses5 = { name: "Church", amount: 1500, recuring: true };
+
+    let expenseArray = [expenses1, expenses2, expenses3, expenses4, expenses5]// Array to store different income objects
+    sessionStorage.setItem('expense', JSON.stringify(expenseArray))// values stored as strings
+    let getArray = JSON.parse(sessionStorage.getItem("expense"))
+    console.log(getArray);
+    let element = ""
+
+    for (let i = 0; i < getArray.length; i++) {
+        element += "\nExpense item is:\nName: " + getArray[i].name + "\nAmount: " + getArray[i].amount + (getArray[i].recurring ? " \nIs Recurring" : "\nNot Recurring");
+    }
+
+    alert(element);
+
+    //user adding another entry
+    const newExpense = {};
+    newExpense.name = prompt(`Enter the name for expense item `);
+    newExpense.amount = parseFloat(prompt(`Enter the amount for expense item`));
+    newExpense.recuring = confirm(`Is income item recurring?`);
+
+    expenseArray.push(newExpense)
+    sessionStorage.setItem('expense', JSON.stringify(expenseArray))
+    getArray = JSON.parse(sessionStorage.getItem('expense'))
+
+
+    // total amount of income
+
+    let totalIcome = 0
+
+    for (let i = 0; i < retrieveArray.length; i++) {
+        totalIcome += retrieveArray[i].amount
+    }
+
+    // total amount of expenses
+
+    let totalExpens = 0
+
+    for (let i = 0; i < getArray.length; i++) {
+        totalExpens += getArray[i].amount
+    }
+
+    // total amount of disposable income(income minus expenses)
+    let total_amount = totalIcome - totalExpens
+    //alert(total_amount)
+
+
+
+    // disposable income the user would like to save 
+    let user_save = prompt(`You have this total amount :${total_amount} into your account . \n How much disposable income you would like to put into savings`)
+
+    sessionStorage.setItem('saving', JSON.stringify(user_save))
+    let getSaving = JSON.parse(sessionStorage.getItem('saving'));
+
+
+    //total disposable income left
+    alert(total_amount - getSaving)
+
+</script>
+
+</html>
